@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Get, Injectable, Param } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 
 @Injectable()
@@ -23,5 +23,10 @@ export class ProfilesService {
 
       findAll(){
         return this.profiles
+      }
+
+    
+      findOne(id:string){
+        return this.profiles.find((profile) => profile.id === id)
       }
 }
