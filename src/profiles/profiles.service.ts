@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { CreateProfileDto } from './dto/create-profile.dto';
+import { UpdateProfileDto } from './dto/update-profile.dto';
 
 @Injectable()
 export class ProfilesService {
@@ -35,5 +36,16 @@ export class ProfilesService {
         const createdProfile = {id: randomUUID(), ...createProfileDto}
         this.profiles.push(createdProfile)
         return createProfileDto
+      }
+
+      update(id:string, updateProfileDto:UpdateProfileDto){
+        //Find profile in array
+        const foundProfile = this.profiles.find((profile) => profile.id === id)
+        //handle not found
+        if (!foundProfile) return {}
+        //update profile field
+        foundProfile.name = updateProfileDto.name
+        foundProfile.description = updateProfileDto.description
+        return foundProfile
       }
 }
