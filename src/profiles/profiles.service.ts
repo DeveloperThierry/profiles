@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { randomUUID } from 'crypto';
+import { randomUUID, UUID } from 'crypto';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 
@@ -27,7 +27,7 @@ export class ProfilesService {
     return this.profiles;
   }
 
-  findOne(id: string) {
+  findOne(id: UUID) {
     const profile = this.profiles.find((profile) => profile.id === id);
     if (!profile)
       throw new NotFoundException(`Profile with ID ${id} not found.`);
@@ -40,7 +40,7 @@ export class ProfilesService {
     return createProfileDto;
   }
 
-  update(id: string, updateProfileDto: UpdateProfileDto) {
+  update(id: UUID, updateProfileDto: UpdateProfileDto) {
     //Find profile in array
     const foundProfile = this.profiles.find((profile) => profile.id === id);
     //handle not found
@@ -53,9 +53,9 @@ export class ProfilesService {
     return foundProfile;
   }
 
-  remove(id: string) {
+  remove(id: UUID) {
     const index = this.profiles.findIndex((profile) => profile.id == id);
-    if (index > -1) {
+    if (index === -1) {
       throw new NotFoundException(`Profile with ID ${id} not found.`);
     }
     this.profiles.splice(index, 1);
