@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  NotFoundException,
   Param,
   Post,
   Put,
@@ -23,7 +24,9 @@ export class ProfilesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.profilesService.findOne(id);
+    const profile = this.profilesService.findOne(id);
+    if(!profile) throw new NotFoundException()
+    return profile
   }
 
   @Post()
