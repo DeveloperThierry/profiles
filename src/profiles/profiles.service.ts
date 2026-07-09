@@ -48,4 +48,13 @@ export class ProfilesService {
         foundProfile.description = updateProfileDto.description
         return foundProfile
       }
+
+      remove(id:string){
+        //findIndexToRemove
+        const index = this.profiles.findIndex((profile) => profile.id == id)
+        //splice remvove
+        if(index > -1){this.profiles.splice(index, 1)}
+        //return json with message success
+        return {id}
+      }
 }
