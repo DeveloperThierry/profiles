@@ -24,9 +24,7 @@ export class ProfilesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    const profile = this.profilesService.findOne(id);
-    if(!profile) throw new NotFoundException()
-    return profile
+    return this.profilesService.findOne(id)
   }
 
   @Post()
